@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Promotions
+{% endblock %}
+
+{% block body %}
+	<div class="container mt-4">
+		<h1>Vélos en Promotion 🔥</h1>
+
+		<div class="row">
+			{% for velo in velos %}
+				<div class="col-md-4 mb-4">
+					<div class="card border-danger">
+						{% if velo.imageUrl %}
+							<img src="{{ velo.imageUrl }}" class="card-img-top" alt="{{ velo.marque }} {{ velo.modele }}">
+						{% endif %}
+
+						<div class="card-body">
+							<h5 class="card-title">{{ velo.marque }}
+								{{ velo.modele }}</h5>
+							<p class="card-text">{{ velo.description }}</p>
+
+							<div class="mb-2">
+								<span class="badge bg-primary">{{ velo.categorie }}</span>
+								<span class="badge bg-secondary">{{ velo.genre }}</span>
+								<span class="badge bg-danger">PROMO</span>
+							</div>
+
+							<p class="card-text">
+								<span class="text-decoration-line-through text-muted">{{ velo.prix }}€</span>
+								<span class="text-danger fw-bold fs-4">{{ velo.prixPromotion }}€</span>
+							</p>
+
+							{% if velo.prixPromotion %}
+								{% set reduction = ((velo.prix - velo.prixPromotion) / velo.prix * 100)|round %}
+								<p class="text-success">
+									<strong>-{{ reduction }}%</strong>
+								</p>
+							{% endif %}
+
+							<a href="{{ path('app_velo_show', {id: velo.id}) }}" class="btn btn-danger">
+								Voir détails
+							</a>
+						</div>
+					</div>
+				</div>
+			{% else %}
+				<div class="col-12">
+					<div class="alert alert-info">
+						<h4>Aucune promotion disponible pour le moment</h4>
+						<p>Revenez bientôt pour découvrir nos offres spéciales !</p>
+						<a href="{{ path('app_velo') }}" class="btn btn-primary">Voir tous les vélos</a>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+{% endblock %}

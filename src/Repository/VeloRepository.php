@@ -71,4 +71,35 @@ class VeloRepository extends ServiceEntityRepository
             ->getQuery()                                  // ← Construit la requête
             ->getResult();                               // ← Exécute et retourne les résultats
     }
+
+    public function findByType(string $categorie): array
+    {
+        return $this->findBy(['categorie' => $categorie]);
+    }
+
+    public function findExpensiveVelos(float $price): array
+    {
+        return $this->createQueryBuilder('v')
+            ->where('v.prix > :price')
+            ->setParameter('price', $price)
+            ->orderBy('v.prix', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * Récupère toutes les catégories distinctes
+     * @return string[] Returns an array of unique category names
+     */
+    public function findAllCategories(): array
+    {
+        $result = $this->createQueryBuilder('v')
+            ->select('DISTINCT v.categorie')
+            ->orderBy('v.categorie', 'ASC')
+            ->getQuery()
+            ->getResult();
+
+        // Convertit [['categorie' => 'VTT'], ...] en ['VTT', ...]
+        return array_column($result, 'categorie');
+    }
 }

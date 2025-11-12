@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Catégories
+{% endblock %}
+
+{% block body %}
+	<div class="container mt-4">
+		<h1>Nos Catégories</h1>
+
+		<div class="row">
+			{% for categorie in categories %}
+				<div class="col-md-4 mb-4">
+					<div class="card">
+						<div class="card-body">
+							<h5 class="card-title">{{ categorie }}</h5>
+							<a href="{{ path('app_velo_by_categorie', {categorie: categorie}) }}" class="btn btn-primary">
+								Voir les vélos
+							</a>
+						</div>
+					</div>
+				</div>
+			{% else %}
+				<div class="col-12">
+					<p>Aucune catégorie disponible.</p>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+{% endblock %}
