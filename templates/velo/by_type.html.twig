@@ -1,0 +1,80 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Vélos - {{ categorie }}{% endblock %}
+
+{% block body %}
+<div class="container mt-4">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="{{ path('app_velo') }}">Vélos</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="{{ path('app_categorie') }}">Catégories</a>
+            </li>
+            <li class="breadcrumb-item active">{{ categorie }}</li>
+        </ol>
+    </nav>
+
+    <h1>Vélos de catégorie : {{ categorie }}</h1>
+
+    <div class="row">
+        {% for velo in velos %}
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    {% if velo.imageUrl %}
+                        <img src="{{ velo.imageUrl }}" class="card-img-top" alt="{{ velo.marque }} {{ velo.modele }}">
+                    {% else %}
+                        <div class="bg-light d-flex align-items-center justify-content-center" style="height: 200px;">
+                            <p class="text-muted mb-0">Aucune image</p>
+                        </div>
+                    {% endif %}
+
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">{{ velo.marque }} {{ velo.modele }}</h5>
+                        <p class="card-text">{{ velo.description }}</p>
+
+                        <div class="mb-2">
+                            <span class="badge bg-primary">{{ velo.categorie }}</span>
+                            <span class="badge bg-secondary">{{ velo.genre }}</span>
+                            {% if velo.estEnPromotion %}
+                                <span class="badge bg-danger">PROMO</span>
+                            {% endif %}
+                        </div>
+
+                        {% if velo.estEnPromotion %}
+                            <p class="card-text">
+                                <span class="text-decoration-line-through text-muted">{{ velo.prix }}€</span>
+                                <span class="text-danger fw-bold">{{ velo.prixPromotion }}€</span>
+                            </p>
+                        {% else %}
+                            <p class="card-text">
+                                <span class="text-success fw-bold">{{ velo.prix }}€</span>
+                            </p>
+                        {% endif %}
+
+                        <div class="mt-auto">
+                            <a href="{{ path('app_velo_show', {id: velo.id}) }}" class="btn btn-primary">
+                                Voir détails
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <div class="col-12">
+                <div class="alert alert-info">
+                    <h4>Aucun vélo trouvé dans la catégorie "{{ categorie }}"</h4>
+                    <p>Essayez une autre catégorie ou consultez tous nos vélos.</p>
+                    <a href="{{ path('app_categorie') }}" class="btn btn-primary me-2">
+                        Voir toutes les catégories
+                    </a>
+                    <a href="{{ path('app_velo') }}" class="btn btn-outline-secondary">
+                        Voir tous les vélos
+                    </a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
