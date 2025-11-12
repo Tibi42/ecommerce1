@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}  {# ← Héritage du template de base #}
+
+{% block title %}Nos Vélos{% endblock %}  {# ← Définition du titre #}
+
+{% block body %}
+<div class="container mt-4">
+    <h1>Catalogue des vélos</h1>
+
+    <div class="row">
+        {% for velo in velos %}  {# ← Boucle sur la variable velos du contrôleur #}
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    {% if velo.imageUrl %}  {# ← Condition Twig #}
+                        <img src="{{ velo.imageUrl }}" class="card-img-top" alt="{{ velo.marque }} {{ velo.modele }}">
+                    {% endif %}
+
+                    <div class="card-body">
+                        <h5 class="card-title">{{ velo.marque }} {{ velo.modele }}</h5>  {# ← Affichage des propriétés #}
+                        <p class="card-text">{{ velo.description }}</p>
+
+                        <div class="mb-2">
+                            <span class="badge bg-primary">{{ velo.categorie }}</span>
+                            <span class="badge bg-secondary">{{ velo.genre }}</span>
+                        </div>
+
+                        {% if velo.estEnPromotion %}  {# ← Condition pour la promotion #}
+                            <p class="card-text">
+                                <span class="text-decoration-line-through">{{ velo.prix }}€</span>
+                                <span class="text-danger fw-bold">{{ velo.prixPromotion }}€</span>
+                                <span class="badge bg-danger">PROMO</span>
+                            </p>
+                        {% else %}
+                            <p class="card-text">
+                                <span class="text-success fw-bold">{{ velo.prix }}€</span>
+                            </p>
+                        {% endif %}
+
+                        <a href="{{ path('app_velo_show', {id: velo.id}) }}" class="btn btn-primary">
+                            Voir détails  {# ← Génération d'URL avec paramètres #}
+                        </a>
+                    </div>
+                </div>
+            </div>
+        {% else %}  {# ← Clause else de la boucle for #}
+            <div class="col-12">
+                <p>Aucun vélo trouvé.</p>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
