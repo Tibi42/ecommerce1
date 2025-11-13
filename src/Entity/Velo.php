@@ -53,6 +53,9 @@ class Velo
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2, nullable: true)]
     private ?string $prixPromotion = null;
 
+    #[ORM\Column(type: Types::DECIMAL, precision: 5, scale: 2, nullable: true)]
+    private ?string $poids = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -210,6 +213,18 @@ class Velo
     public function setDateAjout(\DateTime $dateAjout): static
     {
         $this->dateAjout = $dateAjout;
+
+        return $this;
+    }
+
+    public function getPoids(): ?string
+    {
+        return $this->poids;
+    }
+
+    public function setPoids(?string $poids): static
+    {
+        $this->poids = $poids;
 
         return $this;
     }

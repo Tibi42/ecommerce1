@@ -1,32 +1,56 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}SamKhaser - Boutique Vélo{% endblock %}</title>
+	<head>
+		<meta charset="UTF-8">
+		<title>
+			{% block title %}SamKhaser - Boutique Vélo
+			{% endblock %}
+		</title>
 
-        <!-- Bootstrap CSS -->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+		<!-- Bootstrap CSS -->
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"> {% block stylesheets %}{% endblock %}
+		<link rel="stylesheet" href="{{ asset('assets/styles/app.css') }}">
+	</head>
+	<body>
+		<!-- Navigation -->
+		<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+			<div class="container-fluid">
+				<a class="navbar-brand" href="{{ path('app_velo') }}">🚴 SamKhaser</a>
 
-        {% block stylesheets %}{% endblock %}
-    </head>
-    <body>
-        <!-- Navigation -->
-        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-            <div class="container">
-                <a class="navbar-brand" href="{{ path('app_velo') }}">🚴 SamKhaser</a>
+				<div class="navbar-nav">
+					<a class="nav-link" href="{{ path('app_velo') }}">Tous les vélos</a>
+					<a class="nav-link" href="{{ path('app_mybike') }}">Mon vélo</a>
+				</div>
+			</div>
+		</nav>
 
-                <div class="navbar-nav">
-                    <a class="nav-link" href="{{ path('app_velo') }}">Tous les vélos</a>
-                    <a class="nav-link" href="{{ path('app_mybike') }}">Mon vélo</a>
-                </div>
-            </div>
-        </nav>
+		<!-- Contenu principal avec sidebar -->
+		<div class="container-fluid">
+			<div
+				class="row">
+				<!-- Barre latérale -->
+				<aside class="col-md-3 col-lg-2 sidebar">
+					<nav class="nav flex-column">
+						<a class="nav-link {{ app.request.get('_route') == 'app_categorie' ? 'active' : '' }}" href="{{ path('app_categorie') }}">
+							📂 Catégories
+						</a>
+						<a class="nav-link {{ app.request.get('_route') == 'app_mybike' ? 'active' : '' }}" href="{{ path('app_mybike') }}">
+							🚴 MyBike
+						</a>
+						<a class="nav-link {{ app.request.get('_route') == 'app_promotions' ? 'active' : '' }}" href="{{ path('app_promotions') }}">
+							🎯 Promotions
+						</a>
+					</nav>
+				</aside>
 
-        <!-- Contenu principal -->
-        {% block body %}{% endblock %}
+				<!-- Contenu principal -->
+				<main class="col-md-9 col-lg-10 main-content"> {% block body %}{% endblock %}
+					</main>
+				</div>
+			</div>
 
-        <!-- Bootstrap JS -->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-        {% block javascripts %}{% endblock %}
-    </body>
-</html>
+			<!-- Bootstrap JS -->
+			<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+			{% block javascripts %}{% endblock %}
+		</body>
+	</html>

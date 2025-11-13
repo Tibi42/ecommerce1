@@ -12,7 +12,7 @@ final class VeloController extends AbstractController
     /**
      * Page d'accueil avec tous les vélos
      */
-    #[Route('/velo', name: 'app_velo')]  // ← Route : URL '/velo' → nom 'app_velo'
+    #[Route('/', name: 'app_velo')]  // ← Route : URL '/velo' → nom 'app_velo'
     public function index(VeloRepository $veloRepository): Response  // ← Injection de dépendance
     {
         // Récupération des données via le repository

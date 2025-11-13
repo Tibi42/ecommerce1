@@ -22,7 +22,8 @@ class AppFixtures extends Fixture
                 'description' => 'Excellent VTT pour débuter en montagne avec un cadre robuste et des composants de qualité',
                 'imageUrl' => 'https://www.velovert.com/photos/news/zooms/5e8f0a55770ce1d3fec1767105082485153423441641.jpg',
                 'estEnPromotion' => false,
-                'prixPromotion' => null
+                'prixPromotion' => null,
+                'poids' => '13.50'  // Poids en kg
             ],
             [
                 'categorie' => 'Vélo de route',
@@ -36,7 +37,8 @@ class AppFixtures extends Fixture
                 'description' => 'Vélo de route léger et performant, idéal pour les sorties longues distance',
                 'imageUrl' => 'https://www.bike-mailorder.com/cdn/shop/files/Contend3-Rim-ironIron-2.jpg?v=1736959230&width=1214',
                 'estEnPromotion' => true,
-                'prixPromotion' => '549.99'
+                'prixPromotion' => '549.99',
+                'poids' => '10.20'  // Poids en kg
             ],
             [
                 'categorie' => 'VTC',
@@ -50,7 +52,8 @@ class AppFixtures extends Fixture
                 'description' => 'Vélo tout chemin polyvalent pour la ville et les balades',
                 'imageUrl' => 'https://cdn.shopify.com/s/files/1/0298/8490/7656/products/velo-tout-chemin-reconditionne-riverside-500-bordeaux-velo-decathlon-seconde-vie-paris-421968.jpg?v=1614084884',
                 'estEnPromotion' => false,
-                'prixPromotion' => null
+                'prixPromotion' => null,
+                'poids' => '14.80'  // Poids en kg
             ],
             [
                 'categorie' => 'Vélo électrique',
@@ -64,7 +67,8 @@ class AppFixtures extends Fixture
                 'description' => 'Vélo électrique haut de gamme avec autonomie de 100km',
                 'imageUrl' => 'https://www.jrpbike.fr/873-large_default/specialized-turbo-vado-40-nb.jpg',
                 'estEnPromotion' => true,
-                'prixPromotion' => '2199.99'
+                'prixPromotion' => '2199.99',
+                'poids' => '24.50'  // Poids en kg (plus lourd car électrique)
             ],
             [
                 'categorie' => 'BMX',
@@ -78,13 +82,14 @@ class AppFixtures extends Fixture
                 'description' => 'BMX robuste pour les jeunes riders en herbe',
                 'imageUrl' => 'https://www.mongoose.com/cdn/shop/files/M41501U20_20U_LegionL40-PRP_PDP_ATF01_a440d4aa-cb81-4d87-9924-622449507dd2.png?v=1728860314&width=600',
                 'estEnPromotion' => false,
-                'prixPromotion' => null
+                'prixPromotion' => null,
+                'poids' => '11.20'  // Poids en kg
             ]
         ];
 
         foreach ($velos as $veloData) {
             $velo = new Velo();
-            $velo->setcategorie($veloData['categorie']);
+            $velo->setCategorie($veloData['categorie']);
             $velo->setTaille($veloData['taille']);
             $velo->setGenre($veloData['genre']);
             $velo->setMarque($veloData['marque']);
@@ -97,7 +102,12 @@ class AppFixtures extends Fixture
             $velo->setEstEnPromotion($veloData['estEnPromotion']);
             $velo->setPrixPromotion($veloData['prixPromotion']);
             $velo->setDateAjout(new \DateTime());
-
+            
+            // Ajouter le poids seulement s'il est présent dans les données
+            if (isset($veloData['poids'])) {
+                $velo->setPoids($veloData['poids']);
+            }
+            
             $manager->persist($velo);
         }
 

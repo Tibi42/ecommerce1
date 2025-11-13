@@ -48,6 +48,15 @@
 						<strong>Couleur:</strong>
 						{{ velo.couleur ?? 'Non spécifiée' }}</li>
 					<li>
+						<strong>Poids:</strong>
+						{% if velo.poids %}
+							{{ velo.poids }}
+							kg
+						{% else %}
+							Non spécifié
+						{% endif %}
+					</li>
+					<li>
 						<strong>Stock disponible:</strong>
 						{% if velo.stock > 0 %}
 							<span class="text-success">{{ velo.stock }}
@@ -56,55 +65,54 @@
 							<span class="text-danger">Rupture de stock</span>
 						{% endif %}
 					</li>
-				</ul>
 
-				<div class="mb-3">
-					{% if velo.estEnPromotion %}
-						<p class="fs-4">
-							<span class="text-decoration-line-through text-muted">{{ velo.prix }}€</span>
-							<span class="text-danger fw-bold">{{ velo.prixPromotion }}€</span>
-						</p>
-						{% if velo.prixPromotion %}
-							{% set reduction = ((velo.prix - velo.prixPromotion) / velo.prix * 100)|round %}
-							<p class="text-success">
-								<strong>Économisez
-									{{ reduction }}%</strong>
-							</p>
-						{% endif %}
-					{% else %}
-						<p class="text-success fw-bold fs-4">{{ velo.prix }}€</p>
-					{% endif %}
-				</div>
-
-				{% if velo.description %}
 					<div class="mb-3">
-						<h5>Description</h5>
-						<p class="lead">{{ velo.description }}</p>
+						{% if velo.estEnPromotion %}
+							<p class="fs-4">
+								<span class="text-decoration-line-through text-muted">{{ velo.prix }}€</span>
+								<span class="text-danger fw-bold">{{ velo.prixPromotion }}€</span>
+							</p>
+							{% if velo.prixPromotion %}
+								{% set reduction = ((velo.prix - velo.prixPromotion) / velo.prix * 100)|round %}
+								<p class="text-success">
+									<strong>Économisez
+										{{ reduction }}%</strong>
+								</p>
+							{% endif %}
+						{% else %}
+							<p class="text-success fw-bold fs-4">{{ velo.prix }}€</p>
+						{% endif %}
 					</div>
-				{% endif %}
 
-				<div class="mb-3">
-					<p class="text-muted">
-						<small>Ajouté le
-							{{ velo.dateAjout|date('d/m/Y') }}</small>
-					</p>
-				</div>
-
-				<div class="mt-4">
-					{% if velo.stock > 0 %}
-						<button class="btn btn-primary btn-lg me-2">
-							Ajouter au panier
-						</button>
-					{% else %}
-						<button class="btn btn-secondary btn-lg me-2" disabled>
-							Indisponible
-						</button>
+					{% if velo.description %}
+						<div class="mb-3">
+							<h5>Description</h5>
+							<p class="lead">{{ velo.description }}</p>
+						</div>
 					{% endif %}
-					<a href="{{ path('app_velo') }}" class="btn btn-outline-secondary">
-						Retour à la liste
-					</a>
+
+					<div class="mb-3">
+						<p class="text-muted">
+							<small>Ajouté le
+								{{ velo.dateAjout|date('d/m/Y') }}</small>
+						</p>
+					</div>
+
+					<div class="mt-4">
+						{% if velo.stock > 0 %}
+							<button class="btn btn-primary btn-lg me-2">
+								Ajouter au panier
+							</button>
+						{% else %}
+							<button class="btn btn-secondary btn-lg me-2" disabled>
+								Indisponible
+							</button>
+						{% endif %}
+						<a href="{{ path('app_velo') }}" class="btn btn-outline-secondary">
+							Retour à la liste
+						</a>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-{% endblock %}
+	{% endblock %}
