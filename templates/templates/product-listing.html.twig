@@ -1,0 +1,11 @@
+{# Layout pour pages de listing #}
+{% extends 'base.html.twig' %}
+
+{% block body %}
+	<div class="container mt-4">
+		{% if title is defined %}
+			<h1>{{ title }}</h1>
+		{% endif %}
+		{% block listing_content %}{% endblock %}
+	</div>
+{% endblock %}

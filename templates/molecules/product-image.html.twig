@@ -1,0 +1,10 @@
+{# Image de produit avec placeholder spécifique #}
+{# Usage: {% include 'molecules/product-image.html.twig' with {src: velo.imageUrl, alt: velo.marque ~ ' ' ~ velo.modele, class: 'card-img-top'} %} #}
+{% include 'atoms/image.html.twig' with {
+    src: src,
+    alt: alt,
+    class: class|default('img-fluid'),
+    placeholderClass: placeholderClass|default(''),
+    placeholderStyle: placeholderStyle|default('height: 200px;'),
+    placeholderText: placeholderText|default('Aucune image disponible')
+} %}

@@ -1,0 +1,9 @@
+{# Image atomique avec placeholder #}
+{# Usage: {% include 'atoms/image.html.twig' with {src: velo.imageUrl, alt: 'Description', class: 'img-fluid'} %} #}
+	{% if src %}
+	<img src="{{ src }}" alt="{{ alt|default('') }}" class="{{ class|default('img-fluid') }}">
+{% else %}
+	<div class="bg-light rounded d-flex align-items-center justify-content-center {{ placeholderClass|default('') }}" style="{{ placeholderStyle|default('height: 200px;') }}">
+		<p class="text-muted">{{ placeholderText|default('Aucune image disponible') }}</p>
+	</div>
+{% endif %}

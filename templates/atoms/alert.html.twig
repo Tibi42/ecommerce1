@@ -1,0 +1,14 @@
+{# Alerte atomique #}
+{# Usage: {% include 'atoms/alert.html.twig' with {type: 'info', title: 'Titre', message: 'Message', showButton: true, buttonText: 'Action', buttonHref: path('app_velo')} %} #}
+{% set type = type|default('info') %}
+	<div class="alert alert-{{ type }}"> {% if title %}
+		<h4>{{ title }}</h4>
+	{% endif %}
+	{% if message %}
+		<p>{{ message }}</p>
+	{% endif %}
+	{% if showButton and buttonText and buttonHref %}
+		<a href="{{ buttonHref }}" class="btn btn-{{ buttonVariant|default('primary') }}">{{ buttonText }}</a>
+	{% endif %}
+	{% block alert_content %}{% endblock %}
+</div>

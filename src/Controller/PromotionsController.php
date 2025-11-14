@@ -14,7 +14,7 @@ final class PromotionsController extends AbstractController
     {
         $velos = $veloRepository->findVelosEnPromotion();
 
-        return $this->render('promotions/index.html.twig', [
+        return $this->render('pages/promotions/index.html.twig', [
             'velos' => $velos
         ]);
     }

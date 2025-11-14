@@ -17,9 +17,9 @@ final class VeloController extends AbstractController
     {
         // Récupération des données via le repository
         $velos = $veloRepository->findAllVelo();
-        
+
         // Rendu du template avec transmission des données
-        return $this->render('velo/index.html.twig', [
+        return $this->render('pages/velo/index.html.twig', [
             'controller_name' => 'VeloController',
             'velos' => $velos  // ← Variable accessible dans Twig
         ]);
@@ -50,7 +50,7 @@ final class VeloController extends AbstractController
             throw $this->createNotFoundException('Vélo non trouvé');  // ← Erreur 404
         }
 
-        return $this->render('velo/show.html.twig', [
+        return $this->render('pages/velo/show.html.twig', [
             'velo' => $velo,
         ]);
     }

@@ -1,0 +1,21 @@
+{# Liste de produits avec grille #}
+{# Usage: {% include 'organisms/product-list.html.twig' with {velos: velos, buttonText: 'Voir détails', buttonVariant: 'primary'} %} #}
+	<div class="row"> {% for velo in velos %}
+		{% include 'organisms/product-card.html.twig' with {
+            velo: velo,
+            buttonText: buttonText|default('Voir détails'),
+            buttonVariant: buttonVariant|default('primary'),
+            cardClass: cardClass|default('')
+        } %}
+	{% else %}
+		<div class="col-12">
+			{% include 'organisms/empty-state.html.twig' with {
+                title: emptyTitle|default('Aucun vélo trouvé'),
+                message: emptyMessage|default(''),
+                showButton: emptyShowButton|default(false),
+                buttonText: emptyButtonText|default(''),
+                buttonHref: emptyButtonHref|default('')
+            } %}
+		</div>
+	{% endfor %}
+</div>

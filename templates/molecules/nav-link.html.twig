@@ -1,0 +1,8 @@
+{# Lien de navigation avec état actif #}
+{# Usage: {% include 'molecules/nav-link.html.twig' with {text: 'Catégories', href: path('app_categorie'), route: 'app_categorie', icon: '📂'} %} #}
+{% set isActive = app.request.get('_route') == route %}
+	<a class="nav-link {% if isActive %}active{% endif %}" href="{{ href }}"> {% if icon is defined and icon %}
+		{{ icon }}
+	{% endif %}
+	{{ text }}
+</a>

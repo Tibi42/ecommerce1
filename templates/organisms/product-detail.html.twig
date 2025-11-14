@@ -1,0 +1,106 @@
+{# Vue détaillée d'un produit #}
+{# Usage: {% include 'organisms/product-detail.html.twig' with {velo: velo} %} #}
+	<div class="row"> <div class="col-md-6">
+		{% include 'molecules/product-image.html.twig' with {
+            src: velo.imageUrl,
+            alt: velo.marque ~ ' ' ~ velo.modele,
+            class: 'img-fluid rounded shadow',
+            placeholderStyle: 'height: 400px;'
+        } %}
+	</div>
+	<div class="col-md-6">
+		<h1>{{ velo.marque }}
+			{{ velo.modele }}</h1>
+		<div class="mb-3">
+			{% set badges = [] %}
+			{% if velo.categorie %}
+				{% set badges = badges|merge([{text: velo.categorie, variant: 'primary'}]) %}
+			{% endif %}
+			{% if velo.genre %}
+				{% set badges = badges|merge([{text: velo.genre, variant: 'secondary'}]) %}
+			{% endif %}
+			{% if velo.estEnPromotion %}
+				{% set badges = badges|merge([{text: 'PROMO', variant: 'danger'}]) %}
+			{% endif %}
+			{% if badges|length > 0 %}
+				{% include 'molecules/badge-group.html.twig' with {badges: badges} %}
+			{% endif %}
+		</div>
+		<ul class="list-unstyled">
+			<li>
+				<strong>Taille:</strong>
+				{{ velo.taille }}</li>
+			<li>
+				<strong>Couleur:</strong>
+				{{ velo.couleur ?? 'Non spécifiée' }}</li>
+			<li>
+				<strong>Poids:</strong>
+				{% if velo.poids %}
+					{{ velo.poids }}
+					kg
+				{% else %}
+					Non spécifié
+				{% endif %}
+			</li>
+			<li>
+				<strong>Stock disponible:</strong>
+				{% if velo.stock > 0 %}
+					<span class="text-success">{{ velo.stock }}
+						unités</span>
+				{% else %}
+					<span class="text-danger">Rupture de stock</span>
+				{% endif %}
+			</li>
+		</ul>
+		<div class="mb-3">
+			{% if velo.estEnPromotion %}
+				{% include 'molecules/price-display.html.twig' with {
+                    price: velo.prix,
+                    promoPrice: velo.prixPromotion,
+                    showPercentage: true
+                } %}
+			{% else %}
+				<p class="text-success fw-bold fs-4">{{ velo.prix }}€</p>
+			{% endif %}
+		</div>
+		{% if velo.description %}
+			<div class="mb-3">
+				<h5>Description</h5>
+				<p class="lead">{{ velo.description }}</p>
+			</div>
+		{% endif %}
+		{% if velo.dateAjout %}
+			<div class="mb-3">
+				<p class="text-muted">
+					<small>Ajouté le
+						{{ velo.dateAjout|date('d/m/Y') }}</small>
+				</p>
+			</div>
+		{% endif %}
+		<div class="mt-4">
+			{% if velo.stock > 0 %}
+				{% include 'atoms/button.html.twig' with {
+                    text: 'Ajouter au panier',
+                    variant: 'primary',
+                    size: 'lg',
+                    type: 'button',
+                    class: 'me-2'
+                } %}
+			{% else %}
+				{% include 'atoms/button.html.twig' with {
+                    text: 'Indisponible',
+                    variant: 'secondary',
+                    size: 'lg',
+                    disabled: true,
+                    type: 'button',
+                    class: 'me-2'
+                } %}
+			{% endif %}
+			{% include 'atoms/button.html.twig' with {
+                text: 'Retour à la liste',
+                variant: 'outline-secondary',
+                href: path('app_velo')
+            } %}
+		</div>
+	</div>
+</div>

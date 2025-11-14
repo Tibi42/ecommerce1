@@ -1,0 +1,16 @@
+{# Affichage du prix avec promotion et pourcentage #}
+{# Usage: {% include 'molecules/price-display.html.twig' with {price: 299.99, promoPrice: 199.99, showPercentage: true} %} #}
+{% set isPromo = promoPrice is defined and promoPrice < price %}
+	{% if isPromo %}
+	{% include 'atoms/price.html.twig' with {price: price, isPromo: true, promoPrice: promoPrice} %}
+		{% if showPercentage|default(true) %}
+		{% set reduction = ((price - promoPrice) / price * 100)|round %}
+			<p class="text-success"> <strong>
+				{% if showMinusSign|default(true) %}-
+				{% endif %}
+				{{ reduction }}%</strong>
+		</p>
+	{% endif %}
+{% else %}
+	{% include 'atoms/price.html.twig' with {price: price, isPromo: false} %}
+{% endif %}

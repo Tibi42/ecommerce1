@@ -1,0 +1,52 @@
+{# Page mon vélo #}
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon Vélo
+{% endblock %}
+
+{% block body %}
+	<div class="container mt-4">
+		{% if myBike %}
+			<h1>Mon Vélo :
+				{{ myBike.marque }}
+				{{ myBike.modele }}</h1>
+			<div class="row">
+				<div class="col-md-6">
+					{% include 'molecules/product-image.html.twig' with {
+                    src: myBike.imageUrl,
+                    alt: myBike.marque ~ ' ' ~ myBike.modele,
+                    class: 'img-fluid'
+                } %}
+				</div>
+				<div class="col-md-6">
+					<ul class="list-unstyled">
+						<li>
+							<strong>Marque:</strong>
+							{{ myBike.marque }}</li>
+						<li>
+							<strong>Modèle:</strong>
+							{{ myBike.modele }}</li>
+						<li>
+							<strong>Catégorie:</strong>
+							{{ myBike.categorie }}</li>
+						<li>
+							<strong>Taille:</strong>
+							{{ myBike.taille }}</li>
+					</ul>
+					{% include 'atoms/button.html.twig' with {
+                    text: 'Voir tous les vélos',
+                    variant: 'secondary',
+                    href: path('app_velo')
+                } %}
+				</div>
+			</div>
+		{% else %}
+			{% include 'atoms/alert.html.twig' with {
+            type: 'warning',
+            title: 'Aucun vélo trouvé',
+            message: 'Exécutez les fixtures : <code>php bin/console doctrine:fixtures:load</code>',
+            showButton: false
+        } %}
+		{% endif %}
+	</div>
+{% endblock %}

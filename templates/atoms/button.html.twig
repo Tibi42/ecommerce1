@@ -1,0 +1,21 @@
+{# Bouton atomique réutilisable #}
+{# Usage: {% include 'atoms/button.html.twig' with {text: 'Voir détails', variant: 'primary', href: path('app_velo')} %} #}
+{% set variant = variant|default('primary') %}
+{% set size = size|default('') %}
+{% set disabled = disabled|default(false) %}
+{% set classes = 'btn btn-' ~ variant %}
+	{% if size %}
+{% set classes = classes ~ ' btn-' ~ size %}
+{% endif %}
+	{% if class is defined %}
+{% set classes = classes ~ ' ' ~ class %}
+{% endif %}
+
+	{% if href is defined %}
+		<a href="{{ href }}" class="{{ classes }}" {% if disabled %} disabled {% endif %}> {{ text }}
+	</a>
+{% else %}
+	<button type="{{ type|default('button') }}" class="{{ classes }}" {% if disabled %} disabled {% endif %}>
+		{{ text }}
+	</button>
+{% endif %}

@@ -1,0 +1,15 @@
+{# Carte de catégorie #}
+{# Usage: {% include 'organisms/category-card.html.twig' with {categorie: 'VTT', href: path('app_velo_by_categorie', {categorie: 'VTT'})} %} #}
+	<div class="col-md-4 mb-4"> <div class="card h-100">
+		<div class="card-body d-flex flex-column">
+			<h5 class="card-title">{{ categorie }}</h5>
+			<div class="mt-auto">
+				{% include 'atoms/button.html.twig' with {
+                    text: 'Voir les vélos',
+                    variant: 'primary',
+                    href: href
+                } %}
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,4 @@
+{# Badge atomique réutilisable #}
+{# Usage: {% include 'atoms/badge.html.twig' with {text: 'Catégorie', variant: 'primary'} %} #}
+{% set variant = variant|default('primary') %}
+{% set classes = 'badge bg-' ~ variant %}<span class="{{ classes }}"> {{ text }}</span>

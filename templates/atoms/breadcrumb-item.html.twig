@@ -1,0 +1,9 @@
+{# Item de breadcrumb atomique #}
+{# Usage: {% include 'atoms/breadcrumb-item.html.twig' with {text: 'Vélos', href: path('app_velo'), active: false} %} #}
+{% set isActive = active is defined ? active : false %}
+	<li class="breadcrumb-item {% if isActive %}active{% endif %}"> {% if href is defined and href and not isActive %}
+		<a href="{{ href }}">{{ text }}</a>
+	{% else %}
+		{{ text }}
+	{% endif %}
+</li>

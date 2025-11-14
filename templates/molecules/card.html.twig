@@ -1,0 +1,20 @@
+{# Carte moléculaire générique #}
+{# Usage: {% include 'molecules/card.html.twig' with {title: 'Titre', content: 'Contenu', footer: 'Footer'} %} #}
+	<div class="card {{ cardClass|default('') }}"> {% if image is defined and image %}
+		<img src="{{ image }}" class="card-img-top" alt="{{ imageAlt|default('') }}">
+	{% endif %}
+	<div class="card-body">
+		{% if title is defined and title %}
+			<h5 class="card-title">{{ title }}</h5>
+		{% endif %}
+		{% if content is defined and content %}
+			<p class="card-text">{{ content }}</p>
+		{% endif %}
+		{% block card_body %}{% endblock %}
+	</div>
+	{% if footer is defined and footer %}
+		<div class="card-footer">
+			{{ footer }}
+		</div>
+	{% endif %}
+</div>

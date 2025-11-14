@@ -1,0 +1,8 @@
+{# Fil d'Ariane complet #}
+{# Usage: {% include 'molecules/breadcrumb.html.twig' with {items: [{text: 'Vélos', href: path('app_velo')}, {text: 'Détail', active: true}]} %} #}
+	<nav aria-label="breadcrumb"> <ol class="breadcrumb">
+		{% for item in items %}
+			{% include 'atoms/breadcrumb-item.html.twig' with item %}
+		{% endfor %}
+	</ol>
+</nav>

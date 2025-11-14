@@ -1,0 +1,6 @@
+{# Groupe de badges #}
+{# Usage: {% include 'molecules/badge-group.html.twig' with {badges: [{text: 'Catégorie', variant: 'primary'}, {text: 'Genre', variant: 'secondary'}]} %} #}
+	<div class="mb-2"> {% for badge in badges %}
+		{% include 'atoms/badge.html.twig' with badge %}
+	{% endfor %}
+</div>

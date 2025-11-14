@@ -1,0 +1,50 @@
+{# Carte complète de produit #}
+{# Usage: {% include 'organisms/product-card.html.twig' with {velo: velo} %} #}
+<div class="col-md-4 mb-4">
+    <div class="card h-100 {{ cardClass|default('') }}">
+        {% include 'molecules/product-image.html.twig' with {
+            src: velo.imageUrl,
+            alt: velo.marque ~ ' ' ~ velo.modele,
+            class: 'card-img-top'
+        } %}
+        <div class="card-body d-flex flex-column">
+            <h5 class="card-title">{{ velo.marque }} {{ velo.modele }}</h5>
+            {% if velo.description %}
+                <p class="card-text">{{ velo.description }}</p>
+            {% endif %}
+            {% set badges = [] %}
+            {% if velo.categorie %}
+                {% set badges = badges|merge([{text: velo.categorie, variant: 'primary'}]) %}
+            {% endif %}
+            {% if velo.genre %}
+                {% set badges = badges|merge([{text: velo.genre, variant: 'secondary'}]) %}
+            {% endif %}
+            {% if velo.estEnPromotion %}
+                {% set badges = badges|merge([{text: 'PROMO', variant: 'danger'}]) %}
+            {% endif %}
+            {% if badges|length > 0 %}
+                {% include 'molecules/badge-group.html.twig' with {badges: badges} %}
+            {% endif %}
+            <div class="mb-2">
+                {% if velo.estEnPromotion %}
+                    {% include 'molecules/price-display.html.twig' with {
+                        price: velo.prix,
+                        promoPrice: velo.prixPromotion,
+                        showPercentage: false
+                    } %}
+                {% else %}
+                    {% include 'atoms/price.html.twig' with {price: velo.prix, isPromo: false} %}
+                {% endif %}
+            </div>
+            {% if buttonText is defined %}
+                <div class="mt-auto">
+                    {% include 'atoms/button.html.twig' with {
+                        text: buttonText|default('Voir détails'),
+                        variant: buttonVariant|default('primary'),
+                        href: buttonHref|default(path('app_velo_show', {id: velo.id}))
+                    } %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>

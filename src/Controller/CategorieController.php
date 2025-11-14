@@ -17,7 +17,7 @@ final class CategorieController extends AbstractController
     {
         $categories = $veloRepository->findAllCategories();
 
-        return $this->render('categorie/index.html.twig', [
+        return $this->render('pages/categorie/index.html.twig', [
             'categories' => $categories,
         ]);
     }
@@ -27,7 +27,7 @@ final class CategorieController extends AbstractController
     {
         $velos = $veloRepository->findByType($categorie);
 
-        return $this->render('velo/by_type.html.twig', [
+        return $this->render('pages/velo/by_type.html.twig', [
             'velos' => $velos,
             'categorie' => $categorie
         ]);

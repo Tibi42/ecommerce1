@@ -1,0 +1,33 @@
+{# Page vélos par catégorie #}
+{% extends 'templates/product-detail-layout.html.twig' %}
+
+{% block title %}Vélos -
+	{{ categorie }}
+{% endblock %}
+
+{% block detail_content %}
+	{% set breadcrumbItems = [
+        {text: 'Vélos', href: path('app_velo')},
+        {text: 'Catégories', href: path('app_categorie')},
+        {text: categorie, active: true}
+    ] %}
+	{% include 'molecules/breadcrumb.html.twig' with {items: breadcrumbItems} %}
+	<h1>Vélos de catégorie :
+		{{ categorie }}</h1>
+	{% if velos|length > 0 %}
+		{% include 'organisms/product-list.html.twig' with {
+            velos: velos,
+            buttonText: 'Voir détails',
+            buttonVariant: 'primary'
+        } %}
+	{% else %}
+		<div class="col-12">
+			<div class="alert alert-info">
+				<h4>Aucun vélo trouvé dans la catégorie "{{ categorie }}"</h4>
+				<p>Essayez une autre catégorie ou consultez tous nos vélos.</p>
+				<a href="{{ path('app_categorie') }}" class="btn btn-primary me-2">Voir toutes les catégories</a>
+				<a href="{{ path('app_velo') }}" class="btn btn-outline-secondary">Voir tous les vélos</a>
+			</div>
+		</div>
+	{% endif %}
+{% endblock %}

@@ -1,0 +1,13 @@
+{# État vide (aucun résultat) #}
+{# Usage: {% include 'organisms/empty-state.html.twig' with {title: 'Aucun résultat', message: 'Message', showButton: true, buttonText: 'Action', buttonHref: path('app_velo')} %} #}
+	<div class="alert alert-{{ alertType|default('info') }}"> {% if title %}
+		<h4>{{ title }}</h4>
+	{% endif %}
+	{% if message %}
+		<p>{{ message|raw }}</p>
+	{% endif %}
+	{% if showButton|default(false) and buttonText and buttonHref %}
+		<a href="{{ buttonHref }}" class="btn btn-{{ buttonVariant|default('primary') }}">{{ buttonText }}</a>
+	{% endif %}
+	{% block empty_state_actions %}{% endblock %}
+</div>

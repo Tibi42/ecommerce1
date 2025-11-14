@@ -1,0 +1,16 @@
+{# Page détail vélo #}
+{% extends 'templates/product-detail-layout.html.twig' %}
+
+{% block title %}
+	{{ velo.marque }}
+	{{ velo.modele }}
+{% endblock %}
+
+{% block detail_content %}
+	{% set breadcrumbItems = [
+        {text: 'Vélos', href: path('app_velo')},
+        {text: velo.marque ~ ' ' ~ velo.modele, active: true}
+    ] %}
+	{% include 'molecules/breadcrumb.html.twig' with {items: breadcrumbItems} %}
+	{% include 'organisms/product-detail.html.twig' with {velo: velo} %}
+{% endblock %}

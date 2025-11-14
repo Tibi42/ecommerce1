@@ -1,0 +1,20 @@
+{# Page promotions #}
+{% extends 'templates/product-listing.html.twig' %}
+
+{% block title %}Promotions
+{% endblock %}
+
+{% block listing_content %}
+	{% set title = 'Vélos en Promotion 🔥' %}
+	{% include 'organisms/product-list.html.twig' with {
+        velos: velos,
+        buttonText: 'Voir détails',
+        buttonVariant: 'danger',
+        cardClass: 'border-danger',
+        emptyTitle: 'Aucune promotion disponible pour le moment',
+        emptyMessage: 'Revenez bientôt pour découvrir nos offres spéciales !',
+        emptyShowButton: true,
+        emptyButtonText: 'Voir tous les vélos',
+        emptyButtonHref: path('app_velo')
+    } %}
+{% endblock %}

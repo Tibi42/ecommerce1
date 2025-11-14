@@ -1,0 +1,25 @@
+{# Page catégories #}
+{% extends 'templates/product-listing.html.twig' %}
+
+{% block title %}Catégories
+{% endblock %}
+
+{% block listing_content %}
+	{% set title = 'Nos Catégories' %}
+	<div class="row">
+		{% for categorie in categories %}
+			{% include 'organisms/category-card.html.twig' with {
+                categorie: categorie,
+                href: path('app_velo_by_categorie', {categorie: categorie})
+            } %}
+		{% else %}
+			<div class="col-12">
+				{% include 'organisms/empty-state.html.twig' with {
+                    title: 'Aucune catégorie disponible',
+                    message: '',
+                    showButton: false
+                } %}
+			</div>
+		{% endfor %}
+	</div>
+{% endblock %}

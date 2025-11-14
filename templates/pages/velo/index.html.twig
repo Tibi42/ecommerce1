@@ -1,0 +1,16 @@
+{# Page catalogue vélos #}
+{% extends 'templates/product-listing.html.twig' %}
+
+{% block title %}Nos Vélos
+{% endblock %}
+
+{% block listing_content %}
+	{% set title = 'Catalogue des vélos' %}
+	{% include 'organisms/product-list.html.twig' with {
+        velos: velos,
+        buttonText: 'Voir détails',
+        buttonVariant: 'primary',
+        emptyTitle: 'Aucun vélo trouvé',
+        emptyMessage: ''
+    } %}
+{% endblock %}

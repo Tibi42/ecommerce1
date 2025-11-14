@@ -1,0 +1,7 @@
+{# Affichage du prix atomique #}
+{# Usage: {% include 'atoms/price.html.twig' with {price: 299.99, isPromo: true, promoPrice: 199.99} %} #}
+	{% if isPromo and promoPrice is defined %}<span class="text-decoration-line-through text-muted"> {{ price }}€</span>
+	<span class="text-danger fw-bold">{{ promoPrice }}€</span>
+{% else %}
+	<span class="text-success fw-bold">{{ price }}€</span>
+{% endif %}
