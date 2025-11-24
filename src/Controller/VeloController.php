@@ -26,19 +26,6 @@ final class VeloController extends AbstractController
     }
 
     /**
-     * Page "Mon vélo" - affiche le premier vélo
-     */
-    #[Route('/mybike', name: 'app_mybike')]
-    public function showMyBike(VeloRepository $veloRepository): Response
-    {
-        $myBike = $veloRepository->findOneBy([], ['id' => 'ASC']);
-
-        return $this->render('velo/mybike.html.twig', [
-            'myBike' => $myBike,
-        ]);
-    }
-
-    /**
      * Page détail d'un vélo
      */
     #[Route('/velo/{id}', name: 'app_velo_show')]  // ← {id} est un paramètre d'URL
